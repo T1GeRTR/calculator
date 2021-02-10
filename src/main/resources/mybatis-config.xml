@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource='mysql.jdbc.properties'/>
+
+    <settings>
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type='JDBC'/>
+            <dataSource type='POOLED'>
+                <property name='driver' value='${jdbc.driverClassName}'/>
+                <property name='url' value='${jdbc.url}'/>
+                <property name='username' value='${jdbc.username}'/>
+                <property name='password' value='${jdbc.password}'/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.UserMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.DoctorMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.AdminMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.PatientMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.DayScheduleMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.AppointmentMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.ComissionMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.SessionMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.RoomMapper"/>
+        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.SpecialityMapper"/>
+    </mappers>
+
+</configuration>
