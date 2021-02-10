@@ -15,7 +15,7 @@ public interface ExpressionMapper {
     @Insert({"INSERT INTO expression (type, string, result, status, datetime, userId) VALUES " +
             "(#{expression.type}, #{expression.string}, #{expression.result}, #{expression.status}, #{expression.datetime}, #{userId})"})
     @Options(useGeneratedKeys = true, keyProperty = "expression.id")
-    Expression insert(@Param("expression") Expression expression, @Param("userId") int userId);
+    void insert(@Param("expression") Expression expression, @Param("userId") int userId);
 
     @Select({"SELECT * FROM expression WHERE type = #{type}"})
     @Results({

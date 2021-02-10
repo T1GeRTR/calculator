@@ -24,16 +24,8 @@
     </environments>
 
     <mappers>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.UserMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.DoctorMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.AdminMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.PatientMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.DayScheduleMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.AppointmentMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.ComissionMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.SessionMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.RoomMapper"/>
-        <mapper class="net.thumbtack.school.hospital.mybatis.mappers.SpecialityMapper"/>
+        <mapper class="com.t1gerok.calculator.mybatis.mappers.UserMapper"/>
+        <mapper class="com.t1gerok.calculator.mybatis.mappers.ExpressionMapper"/>
     </mappers>
 
 </configuration>
