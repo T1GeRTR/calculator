@@ -1,20 +1,20 @@
 package com.t1gerok.calculator.exception;
 
-public class CalculatorException extends Exception {
+public class ServerException extends Exception {
 
     private final ErrorCode errorcode;
 
 
-    public CalculatorException(ErrorCode errorcode) {
+    public ServerException(ErrorCode errorcode) {
         this.errorcode = errorcode;
     }
 
-    public CalculatorException(ErrorCode errorcode, String string1) {
+    public ServerException(ErrorCode errorcode, String string1) {
         this.errorcode = errorcode;
         errorcode.formatMessage(string1);
     }
 
-    public CalculatorException(ErrorCode errorcode, int int1) {
+    public ServerException(ErrorCode errorcode, int int1) {
         this.errorcode = errorcode;
         errorcode.formatMessage(int1);
     }

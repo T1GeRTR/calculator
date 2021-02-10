@@ -15,13 +15,16 @@ public interface UserMapper {
 
     @Insert({"INSERT INTO user (login, password) VALUES (#{user.login}, #{user.password})"})
     @Options(useGeneratedKeys = true, keyProperty = "user.id")
-    void insertUser(@Param("user") User user);
+    void insert(@Param("user") User user);
 
     @Select({"SELECT * FROM user WHERE id = (SELECT userId FROM session WHERE sessionId = #{session})"})
     User getBySession(String session);
 
     @Select({"SELECT * FROM user WHERE id = #{userId}"})
     User getById(int userId);
+
+    @Select("SELECT * FROM user WHERE login = #{login}")
+    User getByLogin(String login);
 
     @Select({"SELECT * FROM session WHERE sessionId = #{sessionId}"})
     @Results({

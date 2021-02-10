@@ -1,7 +1,7 @@
 package com.t1gerok.calculator.response;
 
 
-import com.t1gerok.calculator.exception.CalculatorException;
+import com.t1gerok.calculator.exception.ServerException;
 import com.t1gerok.calculator.exception.ErrorCode;
 
 public class FailureResponse {
@@ -9,7 +9,7 @@ public class FailureResponse {
     private String field;
     private String message;
 
-    public FailureResponse(CalculatorException ex) {
+    public FailureResponse(ServerException ex) {
         this.errorCode = ex.getErrorCode();
         this.field = ex.getErrorCode().getField();
         this.message = ex.getErrorCode().getMessage();
