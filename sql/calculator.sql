@@ -36,3 +36,5 @@ KEY result (result),
 KEY datetime (datetime),
 FOREIGN KEY (userId) REFERENCES `user` (id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+INSERT INTO `user` (login, password) VALUES ('unknow', ' ');
