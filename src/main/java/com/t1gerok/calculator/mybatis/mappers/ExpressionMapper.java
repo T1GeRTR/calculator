@@ -13,9 +13,9 @@ import java.util.List;
 public interface ExpressionMapper {
 
     @Insert({"INSERT INTO expression (type, string, result, status, datetime, userId) VALUES " +
-            "(#{expression.type}, #{expression.string}, #{expression.result}, #{expression.status}, #{expression.datetime}, #{userId})"})
+            "(#{expression.type}, #{expression.string}, #{expression.result}, #{expression.status}, #{expression.datetime}, #{expression.user.id})"})
     @Options(useGeneratedKeys = true, keyProperty = "expression.id")
-    void insert(@Param("expression") Expression expression, @Param("userId") int userId);
+    void insert(@Param("expression") Expression expression);
 
     @Select({"SELECT * FROM expression WHERE type = #{type}"})
     @Results({

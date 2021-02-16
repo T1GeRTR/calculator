@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ExpressionDao {
-    Expression insert(Expression expression, int userId) throws ServerException;
+    Expression insert(Expression expression) throws ServerException;
 
     List<Expression> getByType(Type type) throws ServerException;
 

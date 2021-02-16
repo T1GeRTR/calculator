@@ -8,19 +8,21 @@ import com.t1gerok.calculator.model.Type;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Component
 public class ExpressionDaoImpl extends DaoImplBase implements ExpressionDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public Expression insert(Expression expression, int userId) throws ServerException {
+    public Expression insert(Expression expression) throws ServerException {
         LOGGER.debug("DAO insert");
         try (SqlSession sqlSession = getSession()) {
             try {
-                getExpressionMapper(sqlSession).insert(expression, userId);
+                getExpressionMapper(sqlSession).insert(expression);
             } catch (RuntimeException e) {
                 LOGGER.debug("Can't insert expression {}", expression, e);
                 sqlSession.rollback();

@@ -17,14 +17,14 @@ public class TestExpressionDao {
     @Test
     public void testInsertAdd() throws ServerException {
         Expression expression = new Expression(Type.ADDITION, "2+2", 4f, Status.OK, LocalDateTime.now(), new User(1, "", ""));
-        expressionDao.insert(expression, expression.getUser().getId());
+        expressionDao.insert(expression);
         Assertions.assertNotEquals(0, expression.getId());
     }
 
     @Test
     public void testInsertDiv() throws ServerException {
         Expression expression = new Expression(Type.DIVISION, "2/0", 0, Status.ERROR, LocalDateTime.now(), new User(1, "", ""));
-        expressionDao.insert(expression, expression.getUser().getId());
+        expressionDao.insert(expression);
         Assertions.assertNotEquals(0, expression.getId());
     }
 
