@@ -14,18 +14,6 @@ public class TestParser {
     Parser parser = new Parser();
 
     @Test
-    public void testGetExpressionAdd() throws ServerException {
-        Expression1 expression1 = parser.getExpressionFromString("2434+234343", Type.ADDITION);
-        Assertions.assertEquals(expression1.getA(), 2434);
-    }
-
-    @Test
-    public void testGetExpressionSub() throws ServerException {
-        Expression1 expression1 = parser.getExpressionFromString("234343-11111", Type.SUBTRACTION);
-        Assertions.assertEquals(expression1.getA(), 234343);
-    }
-
-    @Test
     public void testExpressionParser() throws ServerException {
         List<String> stringList = parser.expressionParser("(33+22)*44*(22-33*(33+44-55))");
         stringList.size();
@@ -35,7 +23,18 @@ public class TestParser {
     public void testExpressionSplitter(){
         List<String> expressions = new ArrayList<>();
         expressions.add("3-4*5/6");
+        expressions.add("#0+44*55/66");
+        expressions.add("31-#1/54*6");
         List<List<String>> res = parser.expressionSplitter(expressions);
         res.size();
+    }
+
+    @Test
+    public void testGetResultFromString() throws ServerException {
+        Assertions.assertEquals(4, parser.getResultFromString("2+2"));
+        Assertions.assertEquals(4, parser.getResultFromString("2*2"));
+        Assertions.assertEquals(1, parser.getResultFromString("2/2"));
+        Assertions.assertEquals(100, parser.getResultFromString("10*10"));
+        Assertions.assertEquals(0, parser.getResultFromString("2-2"));
     }
 }

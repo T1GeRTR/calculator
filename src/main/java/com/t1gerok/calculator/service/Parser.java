@@ -44,9 +44,9 @@ public class Parser {
             while (str.toString().replaceAll("[^+\\*\\-\\/]", "").length()!=0) {
                 char[] array = str.toString().toCharArray();
                 for (int i = 0; i < array.length; i++) {
-                    char splitter = '*';
+                    char splitter = '/';
                     if (str.indexOf(String.valueOf(splitter))==-1){
-                        splitter = '/';
+                        splitter = '*';
                         if (str.indexOf(String.valueOf(splitter))==-1){
                             splitter = '+';
                             if (str.indexOf(String.valueOf(splitter))==-1){
@@ -57,36 +57,39 @@ public class Parser {
                     if (array[i] == splitter) {
                         String simpleExpression = splitter(str, splitter, i);
                         simpleExpressions.add(simpleExpression);
-                        str.replace(str.indexOf(simpleExpression), str.indexOf(simpleExpression) + simpleExpression.length(), "#" + simpleExpressions.indexOf(simpleExpression));
+                        str.replace(str.indexOf(simpleExpression), str.indexOf(simpleExpression) + simpleExpression.length(), "$" + simpleExpressions.indexOf(simpleExpression));
                         break;
                     }
                 }
-                listSimpleExpressions.add(simpleExpressions);
             }
+            listSimpleExpressions.add(simpleExpressions);
         }
         return listSimpleExpressions;
     }
 
 
 
-    public String splitter(StringBuilder str, char splitter, int i){
+    private String splitter(StringBuilder str, char splitter, int i){
         String before = str.substring(0,i);
         String after = str.substring(i+1);
-        String[] splitBefore = (before.replaceAll("[^#\\d]", " ").trim()).split(" ");
-        String[] splitAfter = (after.replaceAll("[^#\\d]", " ").trim()).split(" ");
+        String[] splitBefore = (before.replaceAll("[^$\\#\\d]", " ").trim()).split(" ");
+        String[] splitAfter = (after.replaceAll("[^$\\#\\d]", " ").trim()).split(" ");
         return  splitBefore[splitBefore.length-1]+ splitter + splitAfter[0];
     }
 
-    public Expression1 getExpressionFromString(String str, Type type) throws ServerException {
-        switch (type) {
-            case ADDITION:
-                return new Expression1(type, Integer.parseInt(str.substring(0, str.indexOf("+"))), Integer.parseInt(str.substring(str.indexOf("+") + 1)));
-            case SUBTRACTION:
-                return new Expression1(type, Integer.parseInt(str.substring(0, str.indexOf("-"))), Integer.parseInt(str.substring(str.indexOf("-") + 1)));
-            case DIVISION:
-                return new Expression1(type, Integer.parseInt(str.substring(0, str.indexOf("/"))), Integer.parseInt(str.substring(str.indexOf("/") + 1)));
-            case MULTIPLICATION:
-                return new Expression1(type, Integer.parseInt(str.substring(0, str.indexOf("*"))), Integer.parseInt(str.substring(str.indexOf("*") + 1)));
+    public float getResultFromString(String str) throws ServerException {
+        String splitter = str.replaceAll("[^+\\*\\-\\/]", "");
+        final int a = Integer.parseInt(str.substring(0, str.indexOf(splitter)));
+        final int b = Integer.parseInt(str.substring(str.indexOf(splitter) + 1));
+        switch (splitter) {
+            case "+":
+                return a + b;
+            case "-":
+                return a - b;
+            case "/":
+                return a / b;
+            case "*":
+                return a * b;
             default:
                 throw new ServerException(ErrorCode.DATABASE_ERROR);
         }
