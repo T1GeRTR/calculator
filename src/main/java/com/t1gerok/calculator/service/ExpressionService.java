@@ -38,7 +38,7 @@ public class ExpressionService {
         float result = 0;
         Status status;
         try {
-            result = (int) engine.eval(string);
+            result = (float) engine.eval(string);
             status = Status.OK;
         } catch (ScriptException e) {
             status = Status.ERROR;
