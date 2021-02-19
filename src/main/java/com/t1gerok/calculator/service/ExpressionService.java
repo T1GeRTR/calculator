@@ -3,19 +3,17 @@ package com.t1gerok.calculator.service;
 import com.t1gerok.calculator.converter.ExpressionConverter;
 import com.t1gerok.calculator.dao.ExpressionDao;
 import com.t1gerok.calculator.dao.UserDao;
+import com.t1gerok.calculator.exception.ErrorCode;
 import com.t1gerok.calculator.exception.ServerException;
 import com.t1gerok.calculator.model.Expression;
 import com.t1gerok.calculator.model.Status;
 import com.t1gerok.calculator.model.Type;
 import com.t1gerok.calculator.model.User;
-import com.t1gerok.calculator.mybatis.daoimpl.ExpressionDaoImpl;
-import com.t1gerok.calculator.mybatis.daoimpl.UserDaoImpl;
 import com.t1gerok.calculator.response.CalculateExpressionDtoResponse;
 import com.t1gerok.calculator.response.GetByDateTimeExpressionDtoResponse;
 import com.t1gerok.calculator.response.GetByTypeExpressionDtoResponse;
 import com.t1gerok.calculator.response.GetByUserIdExpressionDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.script.ScriptEngine;
@@ -33,12 +31,15 @@ public class ExpressionService {
 
     public CalculateExpressionDtoResponse calculate(String string, Type type, String sessionId) throws ServerException {
         User user = userDao.getBySessionId(sessionId);
+        if (user == null) {
+            throw new ServerException(ErrorCode.CANT_GET_USER_BY_SESSION);
+        }
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("js");
         float result = 0;
         Status status;
         try {
-            result = (float) engine.eval(string);
+            result = (int) engine.eval(string);
             status = Status.OK;
         } catch (ScriptException e) {
             status = Status.ERROR;

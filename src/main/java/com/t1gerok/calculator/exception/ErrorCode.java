@@ -5,8 +5,6 @@ public enum ErrorCode {
     CANT_LOGOUT("sessionId", "Can't logout"),
     CANT_LOGIN("login", "User with login %s not found"),
     DUPLICATE_LOGIN("login", "Login %s already exists"),
-    WRONG_SESSION_ID("sessionId", "Can't get user by sessionId"),
-    PERMISSION_DENIED("userType", "Only %s have permission"),
     INTERNAL_SERVER_ERROR("internal error", "Internal server error 500"),
     MISSING_REQUEST_PARAM("request parameters", "%s"),
     WRONG_ARGUMENT_TYPE("argument type", "%s"),

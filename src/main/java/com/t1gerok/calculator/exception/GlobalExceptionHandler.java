@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestCookieException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -52,6 +54,22 @@ public class GlobalExceptionHandler {
     public ResponseEntity<FailuresResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         logger.debug(ex.getMessage());
         errors.add(new FailureResponse(new ServerException(ErrorCode.WRONG_ARGUMENT_TYPE, ex.getMessage())));
+        return ResponseEntity.status(400).body(new FailuresResponse(errors));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<FailuresResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        logger.debug(ex.getMessage());
+        errors.add(new FailureResponse(new ServerException(ErrorCode.MISSING_REQUEST_PARAM, ex.getMessage())));
+        return ResponseEntity.status(400).body(new FailuresResponse(errors));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingRequestCookieException.class)
+    public ResponseEntity<FailuresResponse> handleMissingRequestCookieException(MissingRequestCookieException ex) {
+        logger.debug(ex.getMessage());
+        errors.add(new FailureResponse(new ServerException(ErrorCode.MISSING_COOKIE, ex.getMessage())));
         return ResponseEntity.status(400).body(new FailuresResponse(errors));
     }
 
